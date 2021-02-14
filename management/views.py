@@ -1,3 +1,33 @@
 from django.shortcuts import render
+from django.views.generic import ListView, CreateView, DetailView, UpdateView
 
-# Create your views here.
+from management.models import Product
+
+
+class ProductView(object):
+
+    model = Product
+
+
+class ProductListView(ProductView,
+                      ListView):
+
+    pass
+
+
+class ProductCreateView(ProductView,
+                        CreateView):
+
+    pass
+
+
+class ProductDetailView(ProductView,
+                        DetailView):
+
+    pass
+
+
+class ProductUpdateView(ProductView,
+                        UpdateView):
+
+    pass

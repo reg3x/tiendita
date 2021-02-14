@@ -4,7 +4,7 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
 
-class TimeStampedModel(models):
+class TimeStampedModel(models.Model):
     created = models.DateTimeField()
     updated = models.DateTimeField()
     archived = models.DateTimeField()
@@ -13,7 +13,7 @@ class TimeStampedModel(models):
         abstract = True
 
 
-class LocationInfo(models):
+class LocationInfo(models.Model):
     neighborhood = models.CharField(max_length=500, blank=True)
     street = models.CharField(max_length=100, blank=True)
     city = models.PositiveSmallIntegerField(max_length=2)
@@ -24,7 +24,7 @@ class LocationInfo(models):
         abstract = True
 
 
-class ContactInfo(models):
+class ContactInfo(models.Model):
     name = models.CharField(max_length=100)
     age = models.PositiveSmallIntegerField(max_length=3)
     gender = models.PositiveSmallIntegerField(max_length=2)
@@ -63,7 +63,7 @@ PLATFORM_TYPE_CHOICES = (
 )
 
 
-class PlatForm(models):
+class PlatForm(models.Model):
     """
     The Platform used to contact/purchase. i.e: # Android, iOS, Browser, Instagram, WhatsApp.
     """
@@ -80,13 +80,13 @@ class Operation(TimeStampedModel):
     amount = models.FloatField()
 
 
-class Brand(models):
+class Brand(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=100)
     slug = models.CharField(max_length=50)
 
 
-class ProductCategory(models):
+class ProductCategory(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=100)
     slug = models.CharField(max_length=50)
@@ -102,4 +102,4 @@ class Product(TimeStampedModel):
     cost = models.FloatField()
     sale_price = models.FloatField()
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
-    categories = models.ManyToManyField(ProductCategory, on_delete=models.CASCADE)
+    categories = models.ManyToManyField(ProductCategory)
