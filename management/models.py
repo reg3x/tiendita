@@ -16,9 +16,9 @@ class TimeStampedModel(models.Model):
 class LocationInfo(models.Model):
     neighborhood = models.CharField(max_length=500, blank=True)
     street = models.CharField(max_length=100, blank=True)
-    city = models.PositiveSmallIntegerField(max_length=2)
-    state = models.PositiveSmallIntegerField(max_length=2)
-    country = models.PositiveSmallIntegerField(max_length=3)
+    city = models.PositiveSmallIntegerField()
+    state = models.PositiveSmallIntegerField()
+    country = models.PositiveSmallIntegerField()
 
     class Meta:
         abstract = True
@@ -26,8 +26,8 @@ class LocationInfo(models.Model):
 
 class ContactInfo(models.Model):
     name = models.CharField(max_length=100)
-    age = models.PositiveSmallIntegerField(max_length=3)
-    gender = models.PositiveSmallIntegerField(max_length=2)
+    age = models.PositiveSmallIntegerField()
+    gender = models.PositiveSmallIntegerField()
     email = models.EmailField()
     phone = PhoneNumberField()
     cellphone = PhoneNumberField()
@@ -69,12 +69,12 @@ class PlatForm(models.Model):
     """
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=100)
-    type = models.PositiveSmallIntegerField(max_length=2, choices=PLATFORM_TYPE_CHOICES)
+    type = models.PositiveSmallIntegerField(choices=PLATFORM_TYPE_CHOICES)
 
 
 class Operation(TimeStampedModel):
     id = models.IntegerField(primary_key=True)
-    type = models.PositiveSmallIntegerField(max_length=2)  # Buy Sell Shipping
+    type = models.PositiveSmallIntegerField()  # Buy Sell Shipping
     contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
     platform = models.ForeignKey(PlatForm, on_delete=models.CASCADE)
     amount = models.FloatField()
@@ -90,8 +90,8 @@ class ProductCategory(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=100)
     slug = models.CharField(max_length=50)
-    target_gender = models.PositiveSmallIntegerField(max_length=1)
-    target_age = models.PositiveSmallIntegerField(max_length=3)
+    target_gender = models.PositiveSmallIntegerField()
+    target_age = models.PositiveSmallIntegerField()
 
 
 class Product(TimeStampedModel):

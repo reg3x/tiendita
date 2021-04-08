@@ -21,9 +21,9 @@ from management.views import ProductListView, ProductCreateView, ProductDetailVi
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('productos/', ProductListView.as_view(), name='productos'),
-    path('productos/crear', ProductCreateView.as_view(), name='crear-producto'),
-    path('productos/<int:pk>', ProductDetailView.as_view(), name='detalle-producto'),
-    path('productos/actualizar', ProductUpdateView.as_view(), name='crear-producto'),
+    path('products/', ProductListView.as_view(), name='products'),
+    path('products/create', ProductCreateView.as_view(), name='create-product'),
+    path('products/<int:pk>', ProductDetailView.as_view(), name='detalle-product'),
+    path('products/update', ProductUpdateView.as_view(), name='update-product'),
 
 ]
