@@ -88,6 +88,7 @@ WSGI_APPLICATION = 'tiendita.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'db',
         'NAME': 'tiendita',
         'USER': 'root',
         'PASSWORD': 'localdbpass'

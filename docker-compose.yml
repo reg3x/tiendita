@@ -1,0 +1,30 @@
+# -----
+# Docker compose file for local development
+# -----
+version: '3'
+
+volumes:
+  mysql_data: {}
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/local/Dockerfile
+    image: tiendita_django
+    volumes:
+      - ./:/app
+    ports:
+      - "8000:8000"
+    command: python manage.py runserver 0.0.0.0:8000
+
+  db:
+    image: mysql:8.0
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: 'tiendita'
+      MYSQL_ROOT_PASSWORD: 'localdbpass'
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
