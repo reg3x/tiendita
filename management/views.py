@@ -20,7 +20,7 @@ class ProductListView(ProductView,
 class ProductCreateView(ProductView,
                         CreateView):
 
-    pass
+    success_url = ""
 
 
 class ProductDetailView(ProductView,

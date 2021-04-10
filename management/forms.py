@@ -5,12 +5,12 @@ from management.models import Product
 
 class ProductForm(ModelForm):
 
-    model = Product
-
-    fields = (
-        "name",
-        "cost",
-        "sale_price",
-        "brand",
-        "categories",
-    )
+    class Meta:
+        model = Product
+        fields = (
+            "name",
+            "cost",
+            "sale_price",
+            "brand",
+            "categories",
+        )
