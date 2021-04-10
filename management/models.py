@@ -1,6 +1,7 @@
 import uuid as uuid
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils.text import slugify
 from phonenumber_field.modelfields import PhoneNumberField
 
 
@@ -41,7 +42,7 @@ class UserAccount(TimeStampedModel, ContactInfo):
     """
     Application users: i.e: Admins or Customer with access to our app.
     """
-    id = models.IntegerField(primary_key=True)
+    id = models.BigAutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
@@ -49,7 +50,7 @@ class Contact(TimeStampedModel, ContactInfo):
     """
     Customer, Support from Provider, Shipping Contact, etc.
     """
-    id = models.IntegerField(primary_key=True)
+    id = models.BigAutoField(primary_key=True)
     account = models.OneToOneField(UserAccount, on_delete=models.CASCADE, null=True) # the contact has an account in our app
 
 
@@ -67,13 +68,13 @@ class PlatForm(models.Model):
     """
     The Platform used to contact/purchase. i.e: # Android, iOS, Browser, Instagram, WhatsApp.
     """
-    id = models.IntegerField(primary_key=True)
+    id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=100)
     type = models.PositiveSmallIntegerField(choices=PLATFORM_TYPE_CHOICES)
 
 
 class Operation(TimeStampedModel):
-    id = models.IntegerField(primary_key=True)
+    id = models.BigAutoField(primary_key=True)
     type = models.PositiveSmallIntegerField()  # Buy Sell Shipping
     contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
     platform = models.ForeignKey(PlatForm, on_delete=models.CASCADE)
@@ -81,13 +82,20 @@ class Operation(TimeStampedModel):
 
 
 class Brand(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=100)
     slug = models.CharField(max_length=50)
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return '{}'.format(self.name)
+
 
 class ProductCategory(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=100)
     slug = models.CharField(max_length=50)
     target_gender = models.PositiveSmallIntegerField()
@@ -95,7 +103,7 @@ class ProductCategory(models.Model):
 
 
 class Product(TimeStampedModel):
-    id = models.IntegerField(primary_key=True)
+    id = models.BigAutoField(primary_key=True)
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100)
     slug = models.CharField(max_length=50)

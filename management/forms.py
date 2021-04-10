@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 
-from management.models import Product
+from management.models import Product, Brand
 
 
 class ProductForm(ModelForm):
@@ -13,4 +13,13 @@ class ProductForm(ModelForm):
             "sale_price",
             "brand",
             "categories",
+        )
+
+
+class BrandForm(ModelForm):
+
+    class Meta:
+        model = Brand
+        fields = (
+            "name",
         )
