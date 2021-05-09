@@ -15,11 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.shortcuts import redirect
 
 from management.views import ProductListView, ProductCreateView, ProductDetailView, ProductUpdateView, BrandListView, \
     BrandCreateView, BrandDetailView, BrandUpdateView
 
 urlpatterns = [
+    path(r'^/$', ProductListView.as_view()),
     path('admin/', admin.site.urls),
     path('products/', ProductListView.as_view(), name='products'),
     path('products/create', ProductCreateView.as_view(), name='create-product'),
